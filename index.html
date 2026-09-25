@@ -401,6 +401,15 @@ body{
     );
 }
 
+.icon-wrap.family{
+  background:
+    linear-gradient(
+      145deg,
+      #5689d8,
+      #3156a1
+    );
+}
+
 .icon{
   font-size:30px;
 }
@@ -779,6 +788,15 @@ body{
     );
 }
 
+.sheet-icon.family{
+  background:
+    linear-gradient(
+      145deg,
+      #5689d8,
+      #3156a1
+    );
+}
+
 .sheet-info{
   flex:1;
   min-width:0;
@@ -1020,6 +1038,10 @@ body{
 
   <div class="apps">
 
+    <!-- =========================
+         AMAR HISAB
+    ========================= -->
+
     <button
       class="app-card"
       onclick="openApp('hisab')"
@@ -1050,6 +1072,10 @@ body{
     </button>
 
 
+    <!-- =========================
+         AMAR KHOROCH
+    ========================= -->
+
     <button
       class="app-card"
       onclick="openApp('khoroch')"
@@ -1069,6 +1095,40 @@ body{
 
         <p>
           দৈনিক খরচের হিসাব
+        </p>
+
+      </div>
+
+      <div class="arrow">
+        ›
+      </div>
+
+    </button>
+
+
+    <!-- =========================
+         FAMILY MAINTENANCE
+    ========================= -->
+
+    <button
+      class="app-card"
+      onclick="openApp('family')"
+    >
+
+      <div class="icon-wrap family">
+        <span class="icon">
+          👨‍👩‍👧
+        </span>
+      </div>
+
+      <div class="details">
+
+        <h2>
+          Family Maintenance
+        </h2>
+
+        <p>
+          পরিবারের হিসাব ব্যবস্থাপনা
         </p>
 
       </div>
@@ -1140,6 +1200,10 @@ body{
     </div>
 
 
+    <!-- =========================
+         HISAB
+    ========================= -->
+
     <button
       class="sheet-app"
       id="sheetHisab"
@@ -1169,6 +1233,10 @@ body{
 
     </button>
 
+
+    <!-- =========================
+         KHOROCH
+    ========================= -->
 
     <button
       class="sheet-app"
@@ -1200,6 +1268,44 @@ body{
     </button>
 
 
+    <!-- =========================
+         FAMILY
+    ========================= -->
+
+    <button
+      class="sheet-app"
+      id="sheetFamily"
+      onclick="openApp('family')"
+    >
+
+      <div class="sheet-icon family">
+        👨‍👩‍👧
+      </div>
+
+      <div class="sheet-info">
+
+        <strong>
+          Family Maintenance
+        </strong>
+
+        <span>
+          পরিবারের হিসাব ব্যবস্থাপনা
+        </span>
+
+      </div>
+
+      <div
+        class="check"
+        id="checkFamily"
+      ></div>
+
+    </button>
+
+
+    <!-- =========================
+         HOME
+    ========================= -->
+
     <button
       class="home-btn"
       onclick="goHome()"
@@ -1207,6 +1313,10 @@ body{
       🏠 মূল পেজ
     </button>
 
+
+    <!-- =========================
+         LOGOUT
+    ========================= -->
 
     <button
       class="logout-btn"
@@ -1240,7 +1350,10 @@ const apps = {
     "https://4274sajib-gif.github.io/amar-hisab/",
 
   khoroch:
-    "https://4274sajib-gif.github.io/my-expense/"
+    "https://4274sajib-gif.github.io/my-expense/",
+
+  family:
+    "https://4274sajib-gif.github.io/family/"
 
 };
 
@@ -1505,6 +1618,11 @@ function updateSwitcher(){
       "sheetKhoroch"
     );
 
+  const f =
+    document.getElementById(
+      "sheetFamily"
+    );
+
   const ch =
     document.getElementById(
       "checkHisab"
@@ -1513,6 +1631,11 @@ function updateSwitcher(){
   const ck =
     document.getElementById(
       "checkKhoroch"
+    );
+
+  const cf =
+    document.getElementById(
+      "checkFamily"
     );
 
 
@@ -1526,6 +1649,11 @@ function updateSwitcher(){
     currentApp === "khoroch"
   );
 
+  f.classList.toggle(
+    "active",
+    currentApp === "family"
+  );
+
 
   ch.textContent =
     currentApp === "hisab"
@@ -1535,6 +1663,12 @@ function updateSwitcher(){
 
   ck.textContent =
     currentApp === "khoroch"
+      ? "✓"
+      : "";
+
+
+  cf.textContent =
+    currentApp === "family"
       ? "✓"
       : "";
 
@@ -1727,4 +1861,4 @@ checkLogin();
 </script>
 
 </body>
-        </html>
+</html>
