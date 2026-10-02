@@ -3,57 +3,105 @@
 <head>
 
 <meta charset="UTF-8">
-
-<meta name="viewport"
-      content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-
-<meta name="theme-color" content="#0B6B4F">
-
-<title>All Hisab</title>
-
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#F4F7FB">
+<title>All Hisab · স্মার্ট হিসাব</title>
 <link rel="manifest" href="manifest.json">
 
 <style>
 
+/* =========================
+   RESET
+========================= */
 *{
   box-sizing:border-box;
   -webkit-tap-highlight-color:transparent;
+  margin:0;
+  padding:0;
 }
 
 html,body{
-  margin:0;
-  padding:0;
   width:100%;
   height:100%;
   overflow:hidden;
-  font-family:
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
+  font-family:'Inter',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  background:#F4F7FB;
+  color:#0F1E33;
+  -webkit-font-smoothing:antialiased;
 }
 
-body{
+/* =========================
+   ANIMATED LIGHT BACKGROUND
+========================= */
+.bg{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  overflow:hidden;
   background:
-    radial-gradient(
-      circle at 20% 10%,
-      rgba(255,255,255,.95),
-      transparent 35%
-    ),
-    linear-gradient(
-      145deg,
-      #edf4f1,
-      #dce9e4
-    );
-  color:#17352d;
+    radial-gradient(circle at 15% 10%, #dbeafe 0%, transparent 55%),
+    radial-gradient(circle at 85% 90%, #d1fae5 0%, transparent 55%),
+    linear-gradient(160deg,#F4F7FB 0%,#EAF1F9 50%,#F4F7FB 100%);
+}
+
+.orb{
+  position:absolute;
+  border-radius:50%;
+  filter:blur(80px);
+  opacity:.55;
+  animation:orbFloat 22s ease-in-out infinite;
+}
+
+.orb1{
+  width:320px;height:320px;
+  background:radial-gradient(circle,#93c5fd,transparent 70%);
+  top:-100px;left:-100px;
+}
+
+.orb2{
+  width:280px;height:280px;
+  background:radial-gradient(circle,#6ee7b7,transparent 70%);
+  bottom:-80px;right:-80px;
+  animation-delay:-8s;
+}
+
+.orb3{
+  width:240px;height:240px;
+  background:radial-gradient(circle,#c4b5fd,transparent 70%);
+  top:45%;right:-110px;
+  animation-delay:-15s;
+  opacity:.5;
+}
+
+@keyframes orbFloat{
+  0%,100%{ transform:translate(0,0) scale(1); }
+  33%    { transform:translate(50px,-40px) scale(1.15); }
+  66%    { transform:translate(-40px,40px) scale(.9); }
+}
+
+.grid{
+  position:absolute;
+  inset:0;
+  background-image:
+    linear-gradient(rgba(15,30,51,.045) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(15,30,51,.045) 1px,transparent 1px);
+  background-size:52px 52px;
+  mask-image:radial-gradient(circle at 50% 50%,#000 25%,transparent 85%);
+  -webkit-mask-image:radial-gradient(circle at 50% 50%,#000 25%,transparent 85%);
+  animation:gridMove 40s linear infinite;
+}
+
+@keyframes gridMove{
+  from{ background-position:0 0; }
+  to  { background-position:52px 52px; }
 }
 
 /* =========================
    LOGIN
 ========================= */
-
 .login{
+  position:relative;
+  z-index:2;
   width:100%;
   height:100%;
   display:flex;
@@ -63,238 +111,609 @@ body{
 }
 
 .login-card{
+  position:relative;
   width:100%;
-  max-width:390px;
-  padding:34px 24px 24px;
-  border-radius:30px;
+  max-width:400px;
+  padding:40px 30px 32px;
+  border-radius:28px;
 
-  background:
-    linear-gradient(
-      145deg,
-      rgba(255,255,255,.90),
-      rgba(255,255,255,.62)
-    );
-
-  border:1px solid rgba(255,255,255,.85);
+  background:rgba(255,255,255,.75);
+  border:1px solid rgba(255,255,255,.95);
 
   box-shadow:
-    0 25px 60px rgba(34,75,63,.16),
-    inset 0 1px 0 rgba(255,255,255,.9);
+    0 30px 70px rgba(15,30,51,.12),
+    0 6px 18px rgba(15,30,51,.06),
+    inset 0 1px 0 rgba(255,255,255,1);
 
-  backdrop-filter:blur(18px);
-  -webkit-backdrop-filter:blur(18px);
+  backdrop-filter:blur(24px);
+  -webkit-backdrop-filter:blur(24px);
 
   text-align:center;
+
+  animation:cardIn .8s cubic-bezier(.2,.9,.3,1) both;
+}
+
+@keyframes cardIn{
+  from{ opacity:0; transform:translateY(40px) scale(.94); }
+  to  { opacity:1; transform:translateY(0) scale(1); }
 }
 
 .login-logo{
-  width:72px;
-  height:72px;
-  margin:0 auto 18px;
+  width:78px;
+  height:78px;
+  margin:0 auto 22px;
 
   display:flex;
   align-items:center;
   justify-content:center;
 
-  border-radius:23px;
+  border-radius:24px;
 
   color:#fff;
-  font-size:32px;
+  font-size:36px;
   font-weight:800;
 
   background:
-    linear-gradient(
-      145deg,
-      #168b69,
-      #075a43
-    );
+    linear-gradient(145deg,#14b8a6,#0d9488);
 
   box-shadow:
-    0 14px 28px rgba(11,107,79,.25),
-    inset 0 1px 0 rgba(255,255,255,.25);
+    0 16px 38px rgba(20,184,166,.35),
+    inset 0 1px 0 rgba(255,255,255,.35);
+
+  animation:logoBreath 4s ease-in-out infinite;
+}
+
+@keyframes logoBreath{
+  0%,100%{
+    transform:scale(1);
+    box-shadow:0 16px 38px rgba(20,184,166,.35),inset 0 1px 0 rgba(255,255,255,.35);
+  }
+  50%{
+    transform:scale(1.05);
+    box-shadow:0 22px 50px rgba(20,184,166,.5),inset 0 1px 0 rgba(255,255,255,.5);
+  }
 }
 
 .login-title{
-  margin:0;
   font-size:30px;
   font-weight:800;
   letter-spacing:-.6px;
+
+  background:linear-gradient(145deg,#0f1e33,#0d9488);
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+
+  animation:fadeUp .7s .1s both;
 }
 
 .login-subtitle{
-  margin:8px 0 24px;
-  color:#71847e;
-  font-size:14px;
+  margin:10px 0 28px;
+  color:#64748b;
+  font-size:13px;
+  font-weight:500;
+
+  animation:fadeUp .7s .2s both;
+}
+
+@keyframes fadeUp{
+  from{ opacity:0; transform:translateY(14px); }
+  to  { opacity:1; transform:translateY(0); }
 }
 
 .login-field{
   position:relative;
   width:100%;
-  height:54px;
-  margin-top:13px;
+  height:56px;
+  margin-top:14px;
+
+  animation:fadeUp .7s .3s both;
 }
+
+.login-field:nth-of-type(2){ animation-delay:.4s; }
 
 .login-icon{
   position:absolute;
-  left:17px;
-  top:50%;
+  left:18px;top:50%;
   transform:translateY(-50%);
   z-index:2;
   font-size:18px;
+  opacity:.6;
 }
 
 .login-field input{
   width:100%;
   height:100%;
-
-  border:1px solid rgba(11,107,79,.12);
-  border-radius:17px;
-
-  background:rgba(255,255,255,.72);
-
+  border:1.5px solid #e2e8f0;
+  border-radius:16px;
+  background:#ffffff;
   outline:none;
-
-  padding:
-    0 48px 0 48px;
-
-  color:#17352d;
+  padding:0 52px;
+  color:#0f1e33;
   font-size:15px;
+  font-weight:500;
 
-  box-shadow:
-    inset 0 1px 3px rgba(0,0,0,.04);
+  box-shadow:0 1px 2px rgba(15,30,51,.03);
+
+  transition:all .25s ease;
+}
+
+.login-field input::placeholder{
+  color:#94a3b8;
+  font-weight:400;
 }
 
 .login-field input:focus{
-  border-color:#0b6b4f;
-  box-shadow:
-    0 0 0 3px rgba(11,107,79,.08);
+  border-color:#14b8a6;
+  background:#ffffff;
+  box-shadow:0 0 0 4px rgba(20,184,166,.14);
 }
 
 .password-toggle{
   position:absolute;
-  right:12px;
-  top:50%;
+  right:14px;top:50%;
   transform:translateY(-50%);
 
-  width:34px;
-  height:34px;
+  width:38px;height:38px;
 
   border:0;
   background:transparent;
-
   cursor:pointer;
-  font-size:18px;
+
+  font-size:19px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:12px;
+
+  opacity:.65;
+
+  transition:opacity .15s,background .15s,transform .15s;
+}
+
+.password-toggle:active{
+  transform:translateY(-50%) scale(.9);
+  background:#f1f5f9;
+  opacity:1;
 }
 
 .login-button{
+  position:relative;
   width:100%;
-  height:54px;
-
-  margin-top:20px;
-
+  height:56px;
+  margin-top:26px;
   border:0;
-  border-radius:17px;
-
+  border-radius:16px;
   color:#fff;
+
   background:
-    linear-gradient(
-      145deg,
-      #12906c,
-      #075d45
-    );
+    linear-gradient(145deg,#14b8a6,#0d9488);
 
   font-size:16px;
   font-weight:800;
+  letter-spacing:.4px;
 
   box-shadow:
-    0 12px 25px rgba(11,107,79,.24);
+    0 14px 32px rgba(20,184,166,.35),
+    inset 0 1px 0 rgba(255,255,255,.25);
 
   cursor:pointer;
+  overflow:hidden;
+
+  transition:transform .15s,box-shadow .15s;
+
+  animation:fadeUp .7s .5s both;
 }
 
+.login-button::after{
+  content:"";
+  position:absolute;
+  top:0;left:-100%;
+  width:100%;height:100%;
+
+  background:
+    linear-gradient(90deg,transparent,rgba(255,255,255,.4),transparent);
+
+  transition:left .7s ease;
+}
+
+.login-button:hover::after{ left:100%; }
+
 .login-button:active{
-  transform:scale(.98);
+  transform:scale(.97);
+  box-shadow:0 8px 18px rgba(20,184,166,.3);
 }
 
 .login-error{
   display:none;
-  margin-top:12px;
-  color:#d64e4e;
+  margin-top:16px;
+  padding:10px 14px;
+
+  border-radius:30px;
+  background:#fee2e2;
+  color:#b91c1c;
   font-size:13px;
   font-weight:600;
+
+  border:1px solid #fecaca;
 }
 
 .login-error.show{
   display:block;
+  animation:shake .4s ease;
+}
+
+@keyframes shake{
+  0%,100%{ transform:translateX(0); }
+  20%    { transform:translateX(-6px); }
+  40%    { transform:translateX(6px); }
+  60%    { transform:translateX(-4px); }
+  80%    { transform:translateX(4px); }
 }
 
 .login-footer{
-  margin-top:24px;
-  color:#91a19c;
-  font-size:12px;
-  font-weight:600;
+  margin-top:26px;
+  color:#94a3b8;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:3px;
+  text-transform:uppercase;
+
+  animation:fadeUp .7s .6s both;
 }
 
 /* =========================
    HOME
 ========================= */
-
 .home{
+  position:relative;
+  z-index:2;
   width:100%;
   height:100%;
-  padding:
-    24px
-    20px
-    20px;
+  padding:26px 20px 24px;
+  overflow-y:auto;
+  display:none;
 
-  overflow:auto;
-  position:relative;
+  scrollbar-width:none;
 }
 
-.home::before{
-  content:"";
-  position:absolute;
-  top:38%;
-  left:50%;
-  transform:translate(-50%,-50%);
-  width:320px;
-  height:320px;
-  border-radius:50%;
-  background:
-    radial-gradient(
-      circle,
-      rgba(22,139,105,.18),
-      transparent 70%
-    );
-  filter:blur(40px);
-  pointer-events:none;
-  z-index:0;
-  animation:homeGlow 6s ease-in-out infinite;
-}
+.home::-webkit-scrollbar{ display:none; }
 
-@keyframes homeGlow{
-  0%,100%{ opacity:.6; transform:translate(-50%,-50%) scale(1); }
-  50%    { opacity:1;  transform:translate(-50%,-50%) scale(1.15); }
-}
-
+/* ---------- TOP BAR ---------- */
 .top{
   width:100%;
   max-width:520px;
   margin:0 auto;
+  animation:fadeDown .7s cubic-bezier(.2,.9,.3,1) both;
+}
+
+@keyframes fadeDown{
+  from{ opacity:0; transform:translateY(-24px); }
+  to  { opacity:1; transform:translateY(0); }
+}
+
+.top-bar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:24px;
+}
+
+.greeting{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.avatar{
+  width:44px;height:44px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border-radius:14px;
+
+  font-size:20px;
+  font-weight:800;
+  color:#fff;
+
+  background:
+    linear-gradient(145deg,#14b8a6,#0f766e);
+
+  box-shadow:
+    0 10px 22px rgba(20,184,166,.32),
+    inset 0 1px 0 rgba(255,255,255,.3);
+}
+
+.greet-text small{
+  display:block;
+  font-size:11px;
+  color:#0d9488;
+  font-weight:700;
+  letter-spacing:.4px;
+  text-transform:uppercase;
+}
+
+.greet-text strong{
+  display:block;
+  font-size:15px;
+  font-weight:700;
+  color:#0f1e33;
+  margin-top:2px;
+}
+
+.icon-btn{
+  width:42px;height:42px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border-radius:14px;
+
+  background:#ffffff;
+  border:1px solid #e2e8f0;
+
+  color:#64748b;
+  font-size:17px;
+
+  cursor:pointer;
+
+  box-shadow:0 4px 10px rgba(15,30,51,.05);
+
+  transition:background .2s,transform .2s,box-shadow .2s;
+}
+
+.icon-btn:active{
+  background:#f8fafc;
+  transform:scale(.94);
+  box-shadow:0 2px 5px rgba(15,30,51,.05);
+}
+
+/* ---------- HERO (SOFT TEAL-EMERALD) ---------- */
+.hero{
+  padding:24px 22px 24px;
+  border-radius:24px;
+
+  background:
+    linear-gradient(145deg,#e0f2fe 0%,#bae6fd 50%,#7dd3fc 100%);
+
+  box-shadow:
+    0 20px 45px rgba(125,211,252,.25),
+    0 8px 20px rgba(56,189,248,.15),
+    inset 0 1px 0 rgba(255,255,255,.6);
+
+  position:relative;
+  overflow:hidden;
+  margin-bottom:26px;
+}
+
+.hero::before{
+  content:"";
+  position:absolute;
+  top:-50px;right:-50px;
+  width:200px;height:200px;
+
+  background:
+    radial-gradient(circle,rgba(255,255,255,.4),transparent 70%);
+
+  filter:blur(20px);
+  animation:heroGlow 6s ease-in-out infinite;
+}
+
+.hero::after{
+  content:"";
+  position:absolute;
+  bottom:-60px;left:-40px;
+  width:180px;height:180px;
+
+  background:
+    radial-gradient(circle,rgba(255,255,255,.25),transparent 70%);
+
+  filter:blur(20px);
+  animation:heroGlow 6s ease-in-out infinite;
+  animation-delay:-3s;
+}
+
+@keyframes heroGlow{
+  0%,100%{ opacity:.6; transform:scale(1); }
+  50%    { opacity:1;  transform:scale(1.2); }
+}
+
+.hero h1{
+  position:relative;
+  z-index:1;
+
+  font-size:26px;
+  font-weight:850;
+  letter-spacing:-.5px;
+
+  color:#0c4a6e;
+
+  margin-bottom:8px;
+}
+
+.hero p{
+  position:relative;
+  z-index:1;
+
+  color:#075985;
+  font-size:13px;
+  font-weight:500;
+  line-height:1.5;
+  max-width:300px;
+}
+
+.hero-badge{
+  position:relative;
+  z-index:1;
+
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+
+  margin-top:16px;
+  padding:6px 12px;
+
+  border-radius:30px;
+
+  background:rgba(255,255,255,.6);
+  border:1px solid rgba(125,211,252,.7);
+
+  color:#0c4a6e;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:.4px;
+
+  backdrop-filter:blur(6px);
+  -webkit-backdrop-filter:blur(6px);
+
+  animation:fadeUp .9s .3s both;
+}
+
+.hero-badge::before{
+  content:"●";
+  font-size:8px;
+  color:#0ea5e9;
+  animation:blink 1.6s ease-in-out infinite;
+}
+
+@keyframes blink{
+  0%,100%{ opacity:1; }
+  50%    { opacity:.35; }
+}
+
+/* ---------- SECTION LABEL ---------- */
+.section-label{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  margin:0 4px 14px;
+
+  animation:fadeUp .7s .3s both;
+}
+
+.section-label h2{
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:1.6px;
+  text-transform:uppercase;
+  color:#64748b;
+}
+
+.section-label span{
+  font-size:11px;
+  color:#94a3b8;
+  font-weight:600;
+  padding:3px 10px;
+  background:#ffffff;
+  border-radius:20px;
+  border:1px solid #e2e8f0;
+}
+
+/* =========================
+   APP CARDS
+========================= */
+.apps{
+  width:100%;
+  max-width:500px;
+  margin:0 auto;
+
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+
   position:relative;
   z-index:1;
 }
 
-.brand{
+.app-card{
+  position:relative;
+  width:100%;
+  min-height:96px;
+
   display:flex;
   align-items:center;
-  gap:13px;
+
+  padding:16px 18px;
+
+  border:1px solid rgba(226,232,240,.9);
+  border-radius:22px;
+
+  background:
+    linear-gradient(145deg,#ffffff,#fbfdff);
+
+  box-shadow:
+    0 8px 20px rgba(15,30,51,.06),
+    0 2px 4px rgba(15,30,51,.03),
+    inset 0 1px 0 rgba(255,255,255,1);
+
+  cursor:pointer;
+  text-align:left;
+  color:inherit;
+  font-family:inherit;
+  -webkit-appearance:none;
+  appearance:none;
+  overflow:hidden;
+
+  animation:cardSlide .7s both cubic-bezier(.2,.9,.3,1);
+
+  transition:
+    transform .25s cubic-bezier(.2,.9,.3,1),
+    box-shadow .25s,
+    border-color .25s;
 }
 
-.logo{
-  width:54px;
-  height:54px;
+.app-card:nth-child(1){ animation-delay:.35s; }
+.app-card:nth-child(2){ animation-delay:.45s; }
+.app-card:nth-child(3){ animation-delay:.55s; }
 
+@keyframes cardSlide{
+  from{ opacity:0; transform:translateY(30px) scale(.96); }
+  to  { opacity:1; transform:translateY(0) scale(1); }
+}
+
+.app-card::before{
+  content:"";
+  position:absolute;
+  left:0;top:0;bottom:0;
+  width:4px;
+
+  background:linear-gradient(180deg,#14b8a6,#0d9488);
+
+  opacity:0;
+  transform:scaleY(.3);
+  transform-origin:center;
+
+  transition:opacity .3s,transform .3s;
+}
+
+.app-card:nth-child(2)::before{
+  background:linear-gradient(180deg,#fbbf24,#f59e0b);
+}
+
+.app-card:nth-child(3)::before{
+  background:linear-gradient(180deg,#a78bfa,#8b5cf6);
+}
+
+.app-card:active{
+  transform:translateY(2px) scale(.985);
+  border-color:rgba(20,184,166,.25);
+  box-shadow:
+    0 4px 12px rgba(15,30,51,.06),
+    0 1px 2px rgba(15,30,51,.03);
+}
+
+.app-card:active::before{
+  opacity:1;
+  transform:scaleY(1);
+}
+
+.icon-wrap{
+  position:relative;
+  width:60px;height:60px;
   flex:none;
 
   display:flex;
@@ -303,297 +722,73 @@ body{
 
   border-radius:18px;
 
-  color:#fff;
-  font-size:24px;
-  font-weight:800;
-
-  background:
-    linear-gradient(
-      145deg,
-      #168b69,
-      #075a43
-    );
-
   box-shadow:
-    0 12px 25px rgba(11,107,79,.22),
-    inset 0 1px 0 rgba(255,255,255,.25);
-}
+    0 1px 0 rgba(255,255,255,.6) inset,
+    0 -2px 0 rgba(0,0,0,.12) inset,
+    0 10px 20px -6px rgba(0,0,0,.2);
 
-.title h1{
-  margin:0;
-
-  font-size:27px;
-  font-weight:850;
-  letter-spacing:-.5px;
-}
-
-.title p{
-  margin:4px 0 0;
-
-  color:#71847e;
-  font-size:13px;
-}
-
-/* =========================
-   APP CARDS (3D)
-========================= */
-
-.apps{
-  width:100%;
-  max-width:500px;
-
-  margin:
-    250px
-    auto
-    0;
-
-  display:flex;
-  flex-direction:column;
-  gap:22px;
-
-  perspective:1000px;
-  position:relative;
-  z-index:1;
-}
-
-.app-card{
-  position:relative;
-  width:100%;
-  min-height:110px;
-
-  display:flex;
-  align-items:center;
-
-  padding:20px;
-
-  border:1px solid rgba(255,255,255,.9);
-  border-radius:26px;
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(255,255,255,.98),
-      rgba(255,255,255,.72)
-    );
-
-  box-shadow:
-    0 1px 0 rgba(255,255,255,1) inset,
-    0 -1px 0 rgba(0,0,0,.03) inset,
-    0 12px 24px -8px rgba(30,70,58,.18),
-    0 30px 50px -20px rgba(30,70,58,.35),
-    0 20px 40px -22px rgba(11,107,79,.28);
-
-  cursor:pointer;
-  text-align:left;
-  overflow:hidden;
-
-  transform:translateZ(0) rotateX(0deg);
-  transform-style:preserve-3d;
-
-  animation:
-    cardEntrance .8s cubic-bezier(.2,.9,.3,1) both,
-    cardFloat 4s ease-in-out infinite;
-
-  transition:
-    transform .35s cubic-bezier(.2,.9,.3,1),
-    box-shadow .35s ease;
-}
-
-.app-card:nth-child(1){ animation-delay:.05s, .9s; }
-.app-card:nth-child(2){ animation-delay:.18s, 1.4s; }
-.app-card:nth-child(3){ animation-delay:.31s, 1.9s; }
-
-@keyframes cardEntrance{
-  0%{
-    opacity:0;
-    transform:translateY(40px) rotateX(-20deg) scale(.9);
-  }
-  100%{
-    opacity:1;
-    transform:translateY(0) rotateX(0deg) scale(1);
-  }
-}
-
-@keyframes cardFloat{
-  0%,100%{ transform:translateY(0) rotateX(0deg); }
-  50%    { transform:translateY(-5px) rotateX(2deg); }
-}
-
-.app-card::before{
-  content:"";
-  position:absolute;
-  top:0;
-  left:0;
-  right:0;
-  height:55%;
-
-  border-radius:26px 26px 60% 60%/26px 26px 40px 40px;
-
-  background:
-    linear-gradient(
-      180deg,
-      rgba(255,255,255,.7) 0%,
-      rgba(255,255,255,0) 100%
-    );
-
-  pointer-events:none;
-  z-index:1;
-}
-
-.app-card::after{
-  content:"";
-  position:absolute;
-  left:0;
-  top:20%;
-  bottom:20%;
-  width:5px;
-  border-radius:0 6px 6px 0;
-
-  background:
-    linear-gradient(
-      180deg,
-      #168b69,
-      #075a43
-    );
-
-  opacity:0;
-  transform:scaleY(.4);
-  transform-origin:center;
-
-  transition:opacity .35s ease, transform .35s ease;
-
-  pointer-events:none;
-  z-index:2;
-}
-
-.app-card:nth-child(2)::after{
-  background:linear-gradient(180deg,#d5a94c,#9d7120);
-}
-
-.app-card:nth-child(3)::after{
-  background:linear-gradient(180deg,#5689d8,#3156a1);
-}
-
-.app-card:active{
-  transform:translateY(2px) scale(.975) rotateX(0deg);
-
-  box-shadow:
-    0 1px 0 rgba(255,255,255,1) inset,
-    0 -1px 0 rgba(0,0,0,.03) inset,
-    0 6px 14px -6px rgba(30,70,58,.22),
-    0 14px 26px -14px rgba(30,70,58,.35),
-    0 10px 22px -14px rgba(11,107,79,.35);
-}
-
-.app-card:active::after{
-  opacity:1;
-  transform:scaleY(1);
-}
-
-.icon-wrap{
-  position:relative;
-  width:70px;
-  height:70px;
-
-  flex:none;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  border-radius:22px;
-
-  box-shadow:
-    0 1px 0 rgba(255,255,255,.7) inset,
-    0 -3px 0 rgba(0,0,0,.12) inset,
-    0 10px 18px -6px rgba(0,0,0,.28),
-    0 16px 26px -14px rgba(0,0,0,.35);
-
-  transform:translateZ(30px);
-
-  transition:transform .35s cubic-bezier(.2,.9,.3,1);
+  transition:transform .3s ease;
 }
 
 .app-card:active .icon-wrap{
-  transform:translateZ(30px) scale(.94) rotate(-4deg);
+  transform:scale(.92) rotate(-4deg);
 }
 
 .icon-wrap::before{
   content:"";
   position:absolute;
-  top:6%;
-  left:10%;
-  right:10%;
-  height:40%;
-  border-radius:16px;
+  top:6%;left:12%;right:12%;
+  height:38%;
+  border-radius:14px;
 
   background:
-    linear-gradient(
-      180deg,
-      rgba(255,255,255,.55),
-      rgba(255,255,255,0)
-    );
+    linear-gradient(180deg,rgba(255,255,255,.55),rgba(255,255,255,0));
 
   pointer-events:none;
 }
 
 .icon-wrap.hisab{
-  background:linear-gradient(145deg,#1aa27a,#075d45);
+  background:linear-gradient(145deg,#14b8a6,#0f766e);
 }
 
 .icon-wrap.khoroch{
-  background:linear-gradient(145deg,#e2b65c,#9d7120);
+  background:linear-gradient(145deg,#fbbf24,#f59e0b);
 }
 
 .icon-wrap.family{
-  background:linear-gradient(145deg,#6a9ce8,#3156a1);
+  background:linear-gradient(145deg,#a78bfa,#8b5cf6);
 }
 
 .icon{
-  font-size:32px;
+  font-size:28px;
   position:relative;
   z-index:1;
-
-  filter:
-    drop-shadow(0 2px 3px rgba(0,0,0,.25))
-    drop-shadow(0 1px 0 rgba(255,255,255,.2));
+  filter:drop-shadow(0 2px 4px rgba(0,0,0,.25));
 }
 
 .details{
   min-width:0;
   flex:1;
-
-  padding-left:18px;
-
-  transform:translateZ(15px);
+  padding-left:16px;
 }
 
 .details h2{
-  margin:0;
-
-  font-size:19px;
-  font-weight:800;
-
-  color:#183a31;
-
-  letter-spacing:-.3px;
-
-  text-shadow:0 1px 0 rgba(255,255,255,.7);
+  font-size:16px;
+  font-weight:700;
+  color:#0f1e33;
+  letter-spacing:-.2px;
 }
 
 .details p{
-  margin:6px 0 0;
-
-  font-size:13px;
-  color:#7a8d87;
+  margin:5px 0 0;
+  font-size:12px;
+  color:#64748b;
   font-weight:500;
 }
 
 .arrow{
   flex:none;
-
-  width:38px;
-  height:38px;
+  width:34px;height:34px;
 
   display:flex;
   align-items:center;
@@ -601,115 +796,88 @@ body{
 
   border-radius:50%;
 
-  background:
-    linear-gradient(
-      145deg,
-      rgba(11,107,79,.14),
-      rgba(11,107,79,.05)
-    );
+  background:#f1f5f9;
+  border:1px solid #e2e8f0;
 
-  color:#0b6b4f;
+  color:#64748b;
 
-  font-size:28px;
+  font-size:22px;
   font-weight:300;
   line-height:1;
 
-  box-shadow:
-    0 1px 0 rgba(255,255,255,.6) inset,
-    0 -1px 0 rgba(0,0,0,.05) inset;
-
-  transform:translateZ(20px);
-
-  transition:
-    background .3s,
-    transform .35s cubic-bezier(.2,.9,.3,1);
+  transition:background .25s,transform .25s,color .25s;
 }
 
 .app-card:active .arrow{
-  background:
-    linear-gradient(
-      145deg,
-      rgba(11,107,79,.3),
-      rgba(11,107,79,.15)
-    );
-  transform:translateZ(20px) translateX(4px);
+  background:rgba(20,184,166,.14);
+  color:#0d9488;
+  border-color:rgba(20,184,166,.25);
+  transform:translateX(4px);
 }
 
 /* =========================
    HOME LOGOUT
 ========================= */
-
 .home-logout{
   display:block;
-
   width:100%;
   max-width:500px;
+  margin:32px auto 10px;
 
-  margin:
-    80px
-    auto
-    0;
-
-  position:relative;
-  z-index:1;
+  animation:fadeUp .7s .7s both;
 }
 
-/* =========================
-   LOGOUT BUTTON
-========================= */
-
 .logout-btn{
-  height:50px;
+  height:52px;
+  width:100%;
 
-  border:1px solid rgba(255,255,255,.65);
-  border-radius:17px;
+  border:1px solid #fecaca;
+  border-radius:16px;
 
-  background:
-    linear-gradient(
-      145deg,
-      rgba(255,125,125,.86),
-      rgba(224,91,105,.82)
-    );
+  background:linear-gradient(145deg,#fee2e2,#fef2f2);
 
-  color:#fff;
-
+  color:#dc2626;
   font-size:14px;
-  font-weight:800;
+  font-weight:700;
+  letter-spacing:.3px;
 
   box-shadow:
-    0 10px 22px rgba(190,70,80,.17),
-    inset 0 1px 0 rgba(255,255,255,.35);
+    0 8px 20px rgba(239,68,68,.10),
+    inset 0 1px 0 rgba(255,255,255,.8);
 
   cursor:pointer;
+
+  transition:transform .18s,background .18s,box-shadow .18s;
+}
+
+.logout-btn:active{
+  transform:scale(.97);
+  background:linear-gradient(145deg,#fecaca,#fee2e2);
+  box-shadow:0 4px 12px rgba(239,68,68,.15);
 }
 
 /* =========================
    FOOTER
 ========================= */
-
 .footer{
   width:100%;
   max-width:500px;
-
-  margin:
-    24px
-    auto
-    20px;
+  margin:22px auto 12px;
 
   text-align:center;
 
-  color:#91a19c;
-  font-size:12px;
-  font-weight:600;
+  color:#94a3b8;
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:2.5px;
+  text-transform:uppercase;
 
-  position:relative;
-  z-index:1;
+  animation:fadeUp .7s .8s both;
 }
 
 /* =========================
    VIEWER
 ========================= */
-
 .viewer{
   position:fixed;
   inset:0;
@@ -720,70 +888,42 @@ body{
   background:#fff;
 
   display:none;
-
   z-index:10;
 }
 
 .viewer iframe{
   width:100%;
   height:100%;
-
   border:0;
-
   display:block;
 }
 
 /* =========================
-   ★★★ EDGE SWITCHER (3D) ★★★
-   Same position: left edge, bottom area
+   3D EDGE SWITCHER (LIGHT MINT)
 ========================= */
-
 .edge-switcher{
   position:fixed;
-
   left:-8px;
   bottom:12px;
-
   z-index:40;
 
   width:46px;
   height:48px;
 
   border:0;
-  border-left:0;
+  border-radius:0 20px 20px 0;
 
-  border-radius:
-    0
-    20px
-    20px
-    0;
-
-  /* 3D base gradient (glossy top → dark bottom) */
   background:
-    linear-gradient(
-      180deg,
-      #22d3a0 0%,
-      #168b69 35%,
-      #0b6b4f 70%,
-      #054a37 100%
-    );
+    linear-gradient(180deg,#a7f3d0 0%,#6ee7b7 40%,#34d399 75%,#10b981 100%);
 
-  /* Multiple layered shadows for real 3D depth */
   box-shadow:
-    /* Top highlight */
-    0 1px 0 rgba(255,255,255,.75) inset,
-    /* Left inner light */
-    1px 0 0 rgba(255,255,255,.35) inset,
-    /* Bottom inner dark (bevel) */
-    0 -4px 6px rgba(0,0,0,.35) inset,
-    /* Right inner dark (bevel) */
-    -2px 0 4px rgba(0,0,0,.2) inset,
-    /* Close cast shadow */
-    3px 4px 8px rgba(11,107,79,.35),
-    /* Mid cast shadow */
-    6px 10px 20px rgba(11,107,79,.28),
-    /* Deep cast shadow (3D lift) */
-    10px 18px 34px -8px rgba(11,107,79,.45);
+    0 1px 0 rgba(255,255,255,.95) inset,
+    1px 0 0 rgba(255,255,255,.6) inset,
+    0 -3px 5px rgba(0,0,0,.12) inset,
+    -2px 0 4px rgba(0,0,0,.08) inset,
+    3px 4px 10px rgba(16,185,129,.20),
+    6px 10px 22px rgba(16,185,129,.15),
+    10px 18px 34px -8px rgba(16,185,129,.28);
 
   display:flex;
   align-items:center;
@@ -792,12 +932,7 @@ body{
   cursor:pointer;
   overflow:hidden;
 
-  /* 3D perspective + tilt */
-  transform:
-    perspective(500px)
-    rotateY(-10deg)
-    translateZ(0);
-
+  transform:perspective(500px) rotateY(-10deg) translateZ(0);
   transform-origin:left center;
 
   transition:
@@ -806,54 +941,46 @@ body{
     box-shadow .3s ease,
     border-radius .3s ease;
 
-  /* Pulse glow animation */
   animation:edgePulse3D 3.2s ease-in-out infinite;
 }
 
-/* Pulse glow (glows brighter/dimmer) */
 @keyframes edgePulse3D{
   0%,100%{
     box-shadow:
-      0 1px 0 rgba(255,255,255,.75) inset,
-      1px 0 0 rgba(255,255,255,.35) inset,
-      0 -4px 6px rgba(0,0,0,.35) inset,
-      -2px 0 4px rgba(0,0,0,.2) inset,
-      3px 4px 8px rgba(11,107,79,.35),
-      6px 10px 20px rgba(11,107,79,.28),
-      10px 18px 34px -8px rgba(11,107,79,.45),
-      0 0 12px rgba(34,211,160,.35);
+      0 1px 0 rgba(255,255,255,.95) inset,
+      1px 0 0 rgba(255,255,255,.6) inset,
+      0 -3px 5px rgba(0,0,0,.12) inset,
+      -2px 0 4px rgba(0,0,0,.08) inset,
+      3px 4px 10px rgba(16,185,129,.20),
+      6px 10px 22px rgba(16,185,129,.15),
+      10px 18px 34px -8px rgba(16,185,129,.28),
+      0 0 14px rgba(52,211,153,.4);
   }
   50%{
     box-shadow:
-      0 1px 0 rgba(255,255,255,.85) inset,
-      1px 0 0 rgba(255,255,255,.45) inset,
-      0 -4px 6px rgba(0,0,0,.4) inset,
-      -2px 0 4px rgba(0,0,0,.25) inset,
-      3px 4px 10px rgba(11,107,79,.45),
-      6px 10px 24px rgba(11,107,79,.4),
-      10px 20px 40px -8px rgba(11,107,79,.6),
-      0 0 26px rgba(34,211,160,.7);
+      0 1px 0 rgba(255,255,255,1) inset,
+      1px 0 0 rgba(255,255,255,.7) inset,
+      0 -3px 5px rgba(0,0,0,.15) inset,
+      -2px 0 4px rgba(0,0,0,.10) inset,
+      3px 4px 12px rgba(16,185,129,.28),
+      6px 10px 26px rgba(16,185,129,.22),
+      10px 20px 40px -8px rgba(16,185,129,.38),
+      0 0 28px rgba(52,211,153,.75);
   }
 }
 
-/* Glossy top highlight (glass shine) */
 .edge-switcher::before{
   content:"⇄";
-
-  color:#fff;
-
+  color:#ffffff;
   font-size:20px;
   font-weight:800;
   line-height:1;
-
   position:relative;
   z-index:3;
-
   text-shadow:
-    0 1px 0 rgba(255,255,255,.4),
-    0 2px 6px rgba(0,0,0,.5),
-    0 0 12px rgba(34,211,160,.5);
-
+    0 1px 0 rgba(255,255,255,.6),
+    0 2px 6px rgba(6,95,70,.5),
+    0 0 12px rgba(255,255,255,.7);
   animation:arrowGlow 2.4s ease-in-out infinite;
 }
 
@@ -861,20 +988,19 @@ body{
   0%,100%{
     transform:translateX(0);
     text-shadow:
-      0 1px 0 rgba(255,255,255,.4),
-      0 2px 6px rgba(0,0,0,.5),
-      0 0 10px rgba(34,211,160,.4);
+      0 1px 0 rgba(255,255,255,.6),
+      0 2px 6px rgba(6,95,70,.5),
+      0 0 10px rgba(255,255,255,.5);
   }
   50%{
     transform:translateX(-2px);
     text-shadow:
-      0 1px 0 rgba(255,255,255,.6),
-      0 2px 8px rgba(0,0,0,.6),
-      0 0 22px rgba(34,211,160,.95);
+      0 1px 0 rgba(255,255,255,.9),
+      0 2px 8px rgba(6,95,70,.65),
+      0 0 22px rgba(255,255,255,.95);
   }
 }
 
-/* Light sweep shine across the button */
 .edge-switcher::after{
   content:"";
   position:absolute;
@@ -882,19 +1008,10 @@ body{
   left:-120%;
   width:70%;
   height:100%;
-
   background:
-    linear-gradient(
-      100deg,
-      transparent 0%,
-      rgba(255,255,255,.75) 50%,
-      transparent 100%
-    );
-
+    linear-gradient(100deg,transparent 0%,rgba(255,255,255,.95) 50%,transparent 100%);
   transform:skewX(-20deg);
-
   animation:shine3D 3.4s ease-in-out infinite;
-
   pointer-events:none;
   z-index:2;
 }
@@ -905,48 +1022,25 @@ body{
   100% { left:150%; }
 }
 
-/* Vertical glossy stripe on left edge (adds 3D bevel look) */
 .edge-switcher .gloss{
   position:absolute;
-  left:0;
-  top:0;
-  bottom:0;
+  left:0;top:0;bottom:0;
   width:6px;
-
   background:
-    linear-gradient(
-      90deg,
-      rgba(255,255,255,.65) 0%,
-      rgba(255,255,255,.15) 60%,
-      transparent 100%
-    );
-
-  border-radius:
-    0
-    20px
-    20px
-    0;
-
+    linear-gradient(90deg,rgba(255,255,255,.9) 0%,rgba(255,255,255,.3) 60%,transparent 100%);
+  border-radius:0 20px 20px 0;
   pointer-events:none;
   z-index:2;
 }
 
-/* Pulse ring (3D expanding ring) */
 .edge-switcher .pulse-ring{
   position:absolute;
-  left:0;
-  top:50%;
+  left:0;top:50%;
   transform:translateY(-50%);
-
-  width:100%;
-  height:100%;
-
+  width:100%;height:100%;
   border-radius:inherit;
-
-  border:2px solid rgba(34,211,160,.9);
-
+  border:2px solid rgba(52,211,153,.9);
   animation:ringPulse3D 2.6s ease-out infinite;
-
   pointer-events:none;
   z-index:1;
 }
@@ -955,65 +1049,49 @@ body{
   0%{
     opacity:1;
     transform:translateY(-50%) scale(1);
-    box-shadow:0 0 12px rgba(34,211,160,.9);
+    box-shadow:0 0 12px rgba(52,211,153,.9);
   }
   100%{
     opacity:0;
     transform:translateY(-50%) scale(2);
-    box-shadow:0 0 0 rgba(34,211,160,0);
+    box-shadow:0 0 0 rgba(52,211,153,0);
   }
 }
 
-/* Active / pressed-down state (button sinks into surface) */
 .edge-switcher:active{
   width:56px;
-
-  border-radius:
-    0
-    24px
-    24px
-    0;
-
+  border-radius:0 24px 24px 0;
   transform:
     perspective(500px)
     rotateY(-4deg)
     translateX(2px)
     scale(.96);
-
   box-shadow:
-    0 1px 0 rgba(255,255,255,.5) inset,
-    1px 0 0 rgba(255,255,255,.2) inset,
-    0 -2px 4px rgba(0,0,0,.5) inset,
-    -1px 0 3px rgba(0,0,0,.3) inset,
-    2px 2px 6px rgba(11,107,79,.4),
-    3px 4px 12px rgba(11,107,79,.35),
-    5px 8px 20px -6px rgba(11,107,79,.5),
-    0 0 40px rgba(34,211,160,.9);
+    0 1px 0 rgba(255,255,255,.8) inset,
+    1px 0 0 rgba(255,255,255,.5) inset,
+    0 -2px 4px rgba(0,0,0,.18) inset,
+    -1px 0 3px rgba(0,0,0,.12) inset,
+    2px 2px 6px rgba(16,185,129,.28),
+    3px 4px 12px rgba(16,185,129,.25),
+    5px 8px 20px -6px rgba(16,185,129,.35),
+    0 0 40px rgba(52,211,153,.9);
 }
 
 /* =========================
    OVERLAY
 ========================= */
-
 .overlay{
   position:fixed;
   inset:0;
-
   z-index:50;
-
-  background:
-    rgba(20,35,31,.30);
-
+  background:rgba(15,30,51,.35);
   opacity:0;
   pointer-events:none;
-
-  transition:opacity .2s;
-
+  transition:opacity .3s ease;
   display:flex;
   align-items:flex-end;
-
-  backdrop-filter:blur(3px);
-  -webkit-backdrop-filter:blur(3px);
+  backdrop-filter:blur(6px);
+  -webkit-backdrop-filter:blur(6px);
 }
 
 .overlay.show{
@@ -1024,35 +1102,20 @@ body{
 /* =========================
    BOTTOM SHEET
 ========================= */
-
 .sheet{
   width:100%;
-
-  padding:
-    10px
-    18px
-    22px;
-
-  border-radius:
-    28px
-    28px
-    0
-    0;
+  padding:12px 18px 26px;
+  border-radius:34px 34px 0 0;
 
   background:
-    linear-gradient(
-      145deg,
-      rgba(255,255,255,.97),
-      rgba(242,248,245,.96)
-    );
+    linear-gradient(160deg,#ffffff,#f8fafc);
 
-  box-shadow:
-    0 -15px 45px rgba(20,60,48,.18);
+  border-top:1px solid rgba(226,232,240,.9);
+
+  box-shadow:0 -20px 60px rgba(15,30,51,.18);
 
   transform:translateY(100%);
-
-  transition:
-    transform .25s ease;
+  transition:transform .35s cubic-bezier(.2,.9,.3,1);
 }
 
 .overlay.show .sheet{
@@ -1060,224 +1123,191 @@ body{
 }
 
 .handle{
-  width:42px;
-  height:5px;
-
-  margin:
-    2px
-    auto
-    18px;
-
+  width:44px;height:4px;
+  margin:4px auto 18px;
   border-radius:20px;
-
-  background:#d1dcd8;
+  background:#cbd5e1;
 }
 
 .sheet-title{
-  margin-bottom:14px;
-
-  font-size:17px;
+  margin-bottom:16px;
+  font-size:16px;
   font-weight:800;
-
-  color:#193a31;
-
+  color:#0f1e33;
   text-align:center;
+  letter-spacing:-.2px;
 }
 
 .sheet-app{
+  position:relative;
   width:100%;
-  min-height:70px;
-
+  min-height:68px;
   display:flex;
   align-items:center;
-
-  padding:12px;
-
+  padding:12px 14px;
   margin-top:10px;
 
-  border:1px solid rgba(11,107,79,.08);
-  border-radius:19px;
+  border:1px solid #e2e8f0;
+  border-radius:22px;
 
-  background:
-    rgba(255,255,255,.74);
+  background:#ffffff;
 
   cursor:pointer;
-
   text-align:left;
+  color:inherit;
+  font-family:inherit;
+  -webkit-appearance:none;
+  appearance:none;
+  overflow:hidden;
 
-  transition:
-    transform .15s,
-    background .15s;
+  box-shadow:0 4px 12px rgba(15,30,51,.04);
+
+  transition:transform .18s,background .18s,border-color .18s,box-shadow .18s;
 }
 
-.sheet-app:active{
-  transform:scale(.985);
-}
+.sheet-app:active{ transform:scale(.985); }
 
 .sheet-app.active{
-  background:
-    rgba(11,107,79,.08);
-
-  border-color:
-    rgba(11,107,79,.18);
+  background:linear-gradient(145deg,#f0fdfa,#ccfbf1);
+  border-color:#5eead4;
+  box-shadow:0 8px 20px rgba(20,184,166,.12);
 }
 
 .sheet-icon{
-  width:48px;
-  height:48px;
-
+  width:48px;height:48px;
   flex:none;
-
   display:flex;
   align-items:center;
   justify-content:center;
-
   border-radius:16px;
-
-  font-size:23px;
-
+  font-size:22px;
   color:#fff;
+  box-shadow:0 8px 18px rgba(0,0,0,.15);
 }
 
 .sheet-icon.hisab{
-  background:
-    linear-gradient(
-      145deg,
-      #168b69,
-      #075d45
-    );
+  background:linear-gradient(145deg,#14b8a6,#0f766e);
 }
 
 .sheet-icon.khoroch{
-  background:
-    linear-gradient(
-      145deg,
-      #d5a94c,
-      #9d7120
-    );
+  background:linear-gradient(145deg,#fbbf24,#f59e0b);
 }
 
 .sheet-icon.family{
-  background:
-    linear-gradient(
-      145deg,
-      #5689d8,
-      #3156a1
-    );
+  background:linear-gradient(145deg,#a78bfa,#8b5cf6);
 }
 
 .sheet-info{
   flex:1;
   min-width:0;
-
-  padding-left:13px;
+  padding-left:14px;
 }
 
 .sheet-info strong{
   display:block;
-
-  color:#193a31;
-
-  font-size:15px;
+  color:#0f1e33;
+  font-size:14px;
+  font-weight:700;
 }
 
 .sheet-info span{
   display:block;
-
-  margin-top:3px;
-
-  color:#84938e;
-
-  font-size:12px;
+  margin-top:4px;
+  color:#64748b;
+  font-size:11px;
+  font-weight:500;
 }
 
 .check{
-  width:30px;
-  height:30px;
-
+  width:30px;height:30px;
   display:flex;
   align-items:center;
   justify-content:center;
-
   border-radius:50%;
 
-  background:#0b6b4f;
-
+  background:#14b8a6;
   color:#fff;
 
   font-size:16px;
   font-weight:800;
 
   opacity:0;
+  transform:scale(.6);
+
+  transition:opacity .25s,transform .25s cubic-bezier(.2,.9,.3,1);
+  box-shadow:0 6px 16px rgba(20,184,166,.35);
 }
 
 .sheet-app.active .check{
   opacity:1;
+  transform:scale(1);
 }
 
 .home-btn{
   width:100%;
-  height:50px;
+  height:52px;
+  margin-top:16px;
 
-  margin-top:15px;
+  border:1px solid #99f6e4;
+  border-radius:18px;
 
-  border:1px solid rgba(11,107,79,.10);
-  border-radius:17px;
-
-  background:
-    rgba(11,107,79,.07);
-
-  color:#0b6b4f;
+  background:linear-gradient(145deg,#f0fdfa,#ccfbf1);
+  color:#0d9488;
 
   font-size:14px;
   font-weight:800;
 
   cursor:pointer;
+
+  box-shadow:0 6px 16px rgba(20,184,166,.10);
+
+  transition:background .18s,transform .18s,box-shadow .18s;
+
+  font-family:inherit;
+  -webkit-appearance:none;
+  appearance:none;
+}
+
+.home-btn:active{
+  background:linear-gradient(145deg,#ccfbf1,#99f6e4);
+  transform:scale(.98);
+  box-shadow:0 3px 8px rgba(20,184,166,.15);
 }
 
 .sheet > .logout-btn{
   width:100%;
-
   margin-top:10px;
 }
 
 /* =========================
-   SMALL SCREEN
+   RESPONSIVE
 ========================= */
+@media (max-height:700px){
+  .home{ padding-top:20px; }
+  .hero{ padding:18px 18px 20px; margin-bottom:20px; }
+  .hero h1{ font-size:22px; }
+  .apps{ gap:12px; }
+  .app-card{ min-height:86px; padding:13px 15px; }
+  .icon-wrap{ width:54px; height:54px; border-radius:17px; }
+  .icon{ font-size:25px; }
+  .details h2{ font-size:15px; }
+  .home-logout{ margin-top:24px; }
+  .footer{ margin-top:16px; }
+  .login-card{ padding:32px 24px 26px; }
+  .login-logo{ width:68px; height:68px; font-size:32px; }
+  .login-title{ font-size:26px; }
+}
 
-@media(max-height:650px){
-
-  .home{
-    padding-top:16px;
-  }
-
-  .apps{
-    margin-top:180px;
-    gap:13px;
-  }
-
-  .app-card{
-    min-height:90px;
-    padding:14px;
-  }
-
-  .icon-wrap{
-    width:55px;
-    height:55px;
-    border-radius:18px;
-  }
-
-  .icon{
-    font-size:25px;
-  }
-
-  .home-logout{
-    margin-top:35px;
-  }
-
-  .footer{
-    margin-top:18px;
-  }
+@media (max-width:380px){
+  .details h2{ font-size:15px; }
+  .details p{ font-size:11px; }
+  .app-card{ padding:13px 15px; }
+  .icon-wrap{ width:54px; height:54px; border-radius:16px; }
+  .icon{ font-size:24px; }
+  .sheet-app{ padding:10px 12px; min-height:62px; }
+  .sheet-icon{ width:42px; height:42px; font-size:20px; border-radius:14px; }
+  .hero h1{ font-size:22px; }
+  .top-bar{ margin-bottom:18px; }
 }
 
 </style>
@@ -1285,926 +1315,289 @@ body{
 
 <body>
 
-<!-- =========================
-     LOGIN PAGE
-========================= -->
-
-<div class="login" id="login">
-
-  <div class="login-card">
-
-    <div class="login-logo">
-      ▣
-    </div>
-
-    <h1 class="login-title">
-      All Hisab
-    </h1>
-
-    <p class="login-subtitle">
-      সফটওয়্যার ব্যবহার করতে Login করুন
-    </p>
-
-    <div class="login-field">
-
-      <span class="login-icon">
-        👤
-      </span>
-
-      <input
-        id="loginUsername"
-        type="text"
-        placeholder="Username"
-        autocomplete="username"
-        autocapitalize="none"
-        spellcheck="false"
-      >
-
-    </div>
-
-    <div class="login-field">
-
-      <span class="login-icon">
-        🔑
-      </span>
-
-      <input
-        id="loginPassword"
-        type="password"
-        placeholder="Password"
-        autocomplete="current-password"
-      >
-
-      <button
-        class="password-toggle"
-        type="button"
-        onclick="togglePassword()"
-        aria-label="Password দেখুন"
-      >
-        👁
-      </button>
-
-    </div>
-
-    <button
-      class="login-button"
-      type="button"
-      onclick="login()"
-    >
-      Login
-    </button>
-
-    <div
-      class="login-error"
-      id="loginError"
-    >
-      Username অথবা Password ভুল
-    </div>
-
-    <div class="login-footer">
-      All Hisab
-    </div>
-
-  </div>
-
+<!-- Animated Light Background -->
+<div class="bg">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+  <div class="grid"></div>
 </div>
 
+<!-- =========================
+     LOGIN
+========================= -->
+<div class="login" id="login">
+  <div class="login-card">
+    <div class="login-logo">▣</div>
+    <h1 class="login-title">All Hisab</h1>
+    <p class="login-subtitle">সফটওয়্যার ব্যবহার করতে Login করুন</p>
+
+    <div class="login-field">
+      <span class="login-icon">👤</span>
+      <input id="loginUsername" type="text" placeholder="Username" autocomplete="username" autocapitalize="none" spellcheck="false">
+    </div>
+
+    <div class="login-field">
+      <span class="login-icon">🔑</span>
+      <input id="loginPassword" type="password" placeholder="Password" autocomplete="current-password">
+      <button class="password-toggle" type="button" onclick="togglePassword()" aria-label="Password দেখুন">👁</button>
+    </div>
+
+    <button class="login-button" type="button" onclick="login()">Login</button>
+
+    <div class="login-error" id="loginError">Username অথবা Password ভুল</div>
+    <div class="login-footer">All Hisab</div>
+  </div>
+</div>
 
 <!-- =========================
-     HOME PAGE
+     HOME
 ========================= -->
-
-<div
-  class="home"
-  id="home"
-  style="display:none;"
->
-
+<div class="home" id="home" style="display:none;">
   <div class="top">
 
-    <div class="brand">
-
-      <div class="logo">
-        ▣
+    <div class="top-bar">
+      <div class="greeting">
+        <div class="avatar">SH</div>
+        <div class="greet-text">
+          <small>Developed by</small>
+          <strong>Sajib Hossain</strong>
+        </div>
       </div>
+      <button class="icon-btn" onclick="logout()" aria-label="Logout">🚶‍♂️</button>
+    </div>
 
-      <div class="title">
+    <div class="hero">
+      <h1>All Hisab</h1>
+      <p>আপনার সমস্ত প্রয়োজনীয় সফটওয়্যার এক জায়গায় — দ্রুত, নিরাপদ ও স্মার্ট।</p>
+      <div class="hero-badge">৩টি সফটওয়্যার প্রস্তুত</div>
+    </div>
 
-        <h1>
-          All Hisab
-        </h1>
-
-        <p>
-          আপনার প্রয়োজনীয় সফটওয়্যার এক জায়গায়
-        </p>
-
-      </div>
-
+    <div class="section-label">
+      <h2>আমার সফটওয়্যার</h2>
+      <span>৩টি</span>
     </div>
 
   </div>
 
-
   <div class="apps">
-
-    <!-- AMAR HISAB -->
-    <button
-      class="app-card"
-      onclick="openApp('hisab')"
-    >
-
-      <div class="icon-wrap hisab">
-        <span class="icon">
-          📊
-        </span>
-      </div>
-
+    <button class="app-card" onclick="openApp('hisab')">
+      <div class="icon-wrap hisab"><span class="icon">📊</span></div>
       <div class="details">
-
-        <h2>
-          আমার হিসাব
-        </h2>
-
-        <p>
-          হিসাব ব্যবস্থাপনা
-        </p>
-
+        <h2>আমার হিসাব</h2>
+        <p>হিসাব ব্যবস্থাপনা</p>
       </div>
-
-      <div class="arrow">
-        ›
-      </div>
-
+      <div class="arrow">›</div>
     </button>
 
-
-    <!-- AMAR KHOROCH -->
-    <button
-      class="app-card"
-      onclick="openApp('khoroch')"
-    >
-
-      <div class="icon-wrap khoroch">
-        <span class="icon">
-          💰
-        </span>
-      </div>
-
+    <button class="app-card" onclick="openApp('khoroch')">
+      <div class="icon-wrap khoroch"><span class="icon">💰</span></div>
       <div class="details">
-
-        <h2>
-          আমার খরচ
-        </h2>
-
-        <p>
-          দৈনিক খরচের হিসাব
-        </p>
-
+        <h2>আমার খরচ</h2>
+        <p>দৈনিক খরচের হিসাব</p>
       </div>
-
-      <div class="arrow">
-        ›
-      </div>
-
+      <div class="arrow">›</div>
     </button>
 
-
-    <!-- FAMILY MAINTENANCE -->
-    <button
-      class="app-card"
-      onclick="openApp('family')"
-    >
-
-      <div class="icon-wrap family">
-        <span class="icon">
-          👨‍👩‍👧
-        </span>
-      </div>
-
+    <button class="app-card" onclick="openApp('family')">
+      <div class="icon-wrap family"><span class="icon">👨‍👩‍👧</span></div>
       <div class="details">
-
-        <h2>
-          Family Maintenance
-        </h2>
-
-        <p>
-          পরিবারের হিসাব ব্যবস্থাপনা
-        </p>
-
+        <h2>Family Maintenance</h2>
+        <p>পরিবারের হিসাব ব্যবস্থাপনা</p>
       </div>
-
-      <div class="arrow">
-        ›
-      </div>
-
+      <div class="arrow">›</div>
     </button>
-
   </div>
 
-
-  <button
-    class="logout-btn home-logout"
-    onclick="logout()"
-  >
-    🚪 Logout
-  </button>
-
-
-  <div class="footer">
-    All Hisab
-  </div>
-
+  <button class="logout-btn home-logout" onclick="logout()">🚪 Logout</button>
+  <div class="footer">All Hisab</div>
 </div>
 
-
 <!-- =========================
-     SOFTWARE VIEWER
+     VIEWER
 ========================= -->
+<div class="viewer" id="viewer">
+  <iframe id="appFrame"></iframe>
 
-<div
-  class="viewer"
-  id="viewer"
->
-
-  <iframe
-    id="appFrame"
-  ></iframe>
-
-  <!-- ★ 3D EDGE SWITCHER (same position) ★ -->
-  <div
-    class="edge-switcher"
-    onclick="openSheet()"
-    aria-label="Switch App"
-  >
+  <div class="edge-switcher" onclick="openSheet()" aria-label="Switch App">
     <div class="gloss"></div>
     <div class="pulse-ring"></div>
   </div>
-
 </div>
-
 
 <!-- =========================
-     APP SWITCHER
+     BOTTOM SHEET
 ========================= -->
-
-<div
-  class="overlay"
-  id="overlay"
-  onclick="closeSheet(event)"
->
-
-  <div
-    class="sheet"
-    onclick="event.stopPropagation()"
-  >
-
+<div class="overlay" id="overlay" onclick="closeSheet(event)">
+  <div class="sheet" onclick="event.stopPropagation()">
     <div class="handle"></div>
+    <div class="sheet-title">অ্যাপ পরিবর্তন করুন</div>
 
-    <div class="sheet-title">
-      অ্যাপ পরিবর্তন করুন
-    </div>
-
-
-    <!-- HISAB -->
-    <button
-      class="sheet-app"
-      id="sheetHisab"
-      onclick="openApp('hisab')"
-    >
-
-      <div class="sheet-icon hisab">
-        📊
-      </div>
-
+    <button class="sheet-app" id="sheetHisab" onclick="openApp('hisab')">
+      <div class="sheet-icon hisab">📊</div>
       <div class="sheet-info">
-
-        <strong>
-          আমার হিসাব
-        </strong>
-
-        <span>
-          হিসাব ব্যবস্থাপনা
-        </span>
-
+        <strong>আমার হিসাব</strong>
+        <span>হিসাব ব্যবস্থাপনা</span>
       </div>
-
-      <div
-        class="check"
-        id="checkHisab"
-      ></div>
-
+      <div class="check" id="checkHisab"></div>
     </button>
 
-
-    <!-- KHOROCH -->
-    <button
-      class="sheet-app"
-      id="sheetKhoroch"
-      onclick="openApp('khoroch')"
-    >
-
-      <div class="sheet-icon khoroch">
-        💰
-      </div>
-
+    <button class="sheet-app" id="sheetKhoroch" onclick="openApp('khoroch')">
+      <div class="sheet-icon khoroch">💰</div>
       <div class="sheet-info">
-
-        <strong>
-          আমার খরচ
-        </strong>
-
-        <span>
-          দৈনিক খরচের হিসাব
-        </span>
-
+        <strong>আমার খরচ</strong>
+        <span>দৈনিক খরচের হিসাব</span>
       </div>
-
-      <div
-        class="check"
-        id="checkKhoroch"
-      ></div>
-
+      <div class="check" id="checkKhoroch"></div>
     </button>
 
-
-    <!-- FAMILY -->
-    <button
-      class="sheet-app"
-      id="sheetFamily"
-      onclick="openApp('family')"
-    >
-
-      <div class="sheet-icon family">
-        👨‍👩‍👧
-      </div>
-
+    <button class="sheet-app" id="sheetFamily" onclick="openApp('family')">
+      <div class="sheet-icon family">👨‍👩‍👧</div>
       <div class="sheet-info">
-
-        <strong>
-          Family Maintenance
-        </strong>
-
-        <span>
-          পরিবারের হিসাব ব্যবস্থাপনা
-        </span>
-
+        <strong>Family Maintenance</strong>
+        <span>পরিবারের হিসাব ব্যবস্থাপনা</span>
       </div>
-
-      <div
-        class="check"
-        id="checkFamily"
-      ></div>
-
+      <div class="check" id="checkFamily"></div>
     </button>
 
-
-    <!-- HOME -->
-    <button
-      class="home-btn"
-      onclick="goHome()"
-    >
-      🏠 মূল পেজ
-    </button>
-
-
-    <!-- LOGOUT -->
-    <button
-      class="logout-btn"
-      onclick="logout()"
-    >
-      🚪 Logout
-    </button>
-
+    <button class="home-btn" onclick="goHome()">🏠 মূল পেজ</button>
+    <button class="logout-btn" onclick="logout()">🚪 Logout</button>
   </div>
-
 </div>
 
-
 <script>
-
-/* =========================
-   LOGIN SETTINGS
-========================= */
 
 const LOGIN_USERNAME = "Sajib71";
 const LOGIN_PASSWORD = "Babu78784";
 
-
-/* =========================
-   APP URLS
-========================= */
-
 const apps = {
-
-  hisab:
-    "https://4274sajib-gif.github.io/amar-hisab/",
-
-  khoroch:
-    "https://4274sajib-gif.github.io/my-expense/",
-
-  family:
-    "https://4274sajib-gif.github.io/family/"
-
+  hisab:   "https://4274sajib-gif.github.io/amar-hisab/",
+  khoroch: "https://4274sajib-gif.github.io/my-expense/",
+  family:  "https://4274sajib-gif.github.io/family/"
 };
 
-
 let currentApp = "";
-
-const LOGIN_KEY =
-  "AMAR_APP_LOGIN";
-
-
-/* =========================
-   LOGIN CHECK
-========================= */
+const LOGIN_KEY = "AMAR_APP_LOGIN";
 
 function checkLogin(){
-
-  const loggedIn =
-    localStorage.getItem(
-      LOGIN_KEY
-    );
-
-  if(
-    loggedIn === "true"
-  ){
-
+  if(localStorage.getItem(LOGIN_KEY) === "true"){
     showHome();
-
   }else{
-
     showLogin();
-
   }
-
 }
-
-
-/* =========================
-   SHOW LOGIN
-========================= */
 
 function showLogin(){
-
-  document.getElementById(
-    "login"
-  ).style.display = "flex";
-
-  document.getElementById(
-    "home"
-  ).style.display = "none";
-
-  document.getElementById(
-    "viewer"
-  ).style.display = "none";
-
-  document.getElementById(
-    "appFrame"
-  ).src = "";
-
+  document.getElementById("login").style.display = "flex";
+  document.getElementById("home").style.display = "none";
+  document.getElementById("viewer").style.display = "none";
+  document.getElementById("appFrame").src = "";
 }
-
-
-/* =========================
-   SHOW HOME
-========================= */
 
 function showHome(){
-
-  document.getElementById(
-    "login"
-  ).style.display = "none";
-
-  document.getElementById(
-    "home"
-  ).style.display = "block";
-
-  document.getElementById(
-    "viewer"
-  ).style.display = "none";
-
+  document.getElementById("login").style.display = "none";
+  document.getElementById("home").style.display = "block";
+  document.getElementById("viewer").style.display = "none";
 }
-
-
-/* =========================
-   LOGIN
-========================= */
 
 function login(){
+  const u = document.getElementById("loginUsername").value.trim();
+  const p = document.getElementById("loginPassword").value;
+  const err = document.getElementById("loginError");
 
-  const username =
-    document.getElementById(
-      "loginUsername"
-    ).value.trim();
-
-  const password =
-    document.getElementById(
-      "loginPassword"
-    ).value;
-
-  const error =
-    document.getElementById(
-      "loginError"
-    );
-
-
-  if(
-    username === LOGIN_USERNAME &&
-    password === LOGIN_PASSWORD
-  ){
-
-    localStorage.setItem(
-      LOGIN_KEY,
-      "true"
-    );
-
-    error.classList.remove(
-      "show"
-    );
-
-    document.getElementById(
-      "loginPassword"
-    ).value = "";
-
+  if(u === LOGIN_USERNAME && p === LOGIN_PASSWORD){
+    localStorage.setItem(LOGIN_KEY,"true");
+    err.classList.remove("show");
+    document.getElementById("loginPassword").value = "";
     showHome();
-
   }else{
-
-    error.classList.add(
-      "show"
-    );
-
+    err.classList.remove("show");
+    void err.offsetWidth;
+    err.classList.add("show");
   }
-
 }
-
-
-/* =========================
-   PASSWORD TOGGLE
-========================= */
 
 function togglePassword(){
-
-  const input =
-    document.getElementById(
-      "loginPassword"
-    );
-
-  const button =
-    document.querySelector(
-      ".password-toggle"
-    );
-
-
-  if(
-    input.type === "password"
-  ){
-
-    input.type = "text";
-
-    button.textContent = "🙈";
-
+  const i = document.getElementById("loginPassword");
+  const b = document.querySelector(".password-toggle");
+  if(i.type === "password"){
+    i.type = "text";
+    b.textContent = "🙈";
   }else{
-
-    input.type = "password";
-
-    button.textContent = "👁";
-
+    i.type = "password";
+    b.textContent = "👁";
   }
-
 }
 
+document.getElementById("loginUsername").addEventListener("keydown", e=>{
+  if(e.key === "Enter") document.getElementById("loginPassword").focus();
+});
 
-/* =========================
-   ENTER KEY
-========================= */
-
-document
-  .getElementById(
-    "loginUsername"
-  )
-  .addEventListener(
-    "keydown",
-    function(e){
-
-      if(
-        e.key === "Enter"
-      ){
-
-        document
-          .getElementById(
-            "loginPassword"
-          )
-          .focus();
-
-      }
-
-    }
-  );
-
-
-document
-  .getElementById(
-    "loginPassword"
-  )
-  .addEventListener(
-    "keydown",
-    function(e){
-
-      if(
-        e.key === "Enter"
-      ){
-
-        login();
-
-      }
-
-    }
-  );
-
-
-/* =========================
-   OPEN APP
-========================= */
+document.getElementById("loginPassword").addEventListener("keydown", e=>{
+  if(e.key === "Enter") login();
+});
 
 function openApp(name){
-
-  currentApp =
-    name;
-
-  document.getElementById(
-    "home"
-  ).style.display = "none";
-
-  document.getElementById(
-    "viewer"
-  ).style.display = "block";
-
-  document.getElementById(
-    "appFrame"
-  ).src =
-    apps[name];
-
+  currentApp = name;
+  document.getElementById("home").style.display = "none";
+  document.getElementById("viewer").style.display = "block";
+  document.getElementById("appFrame").src = apps[name];
   updateSwitcher();
-
   closeSheet();
-
 }
-
-
-/* =========================
-   UPDATE SWITCHER
-========================= */
 
 function updateSwitcher(){
+  const h  = document.getElementById("sheetHisab");
+  const k  = document.getElementById("sheetKhoroch");
+  const f  = document.getElementById("sheetFamily");
+  const ch = document.getElementById("checkHisab");
+  const ck = document.getElementById("checkKhoroch");
+  const cf = document.getElementById("checkFamily");
 
-  const h =
-    document.getElementById(
-      "sheetHisab"
-    );
+  h.classList.toggle("active", currentApp === "hisab");
+  k.classList.toggle("active", currentApp === "khoroch");
+  f.classList.toggle("active", currentApp === "family");
 
-  const k =
-    document.getElementById(
-      "sheetKhoroch"
-    );
-
-  const f =
-    document.getElementById(
-      "sheetFamily"
-    );
-
-  const ch =
-    document.getElementById(
-      "checkHisab"
-    );
-
-  const ck =
-    document.getElementById(
-      "checkKhoroch"
-    );
-
-  const cf =
-    document.getElementById(
-      "checkFamily"
-    );
-
-
-  h.classList.toggle(
-    "active",
-    currentApp === "hisab"
-  );
-
-  k.classList.toggle(
-    "active",
-    currentApp === "khoroch"
-  );
-
-  f.classList.toggle(
-    "active",
-    currentApp === "family"
-  );
-
-
-  ch.textContent =
-    currentApp === "hisab"
-      ? "✓"
-      : "";
-
-
-  ck.textContent =
-    currentApp === "khoroch"
-      ? "✓"
-      : "";
-
-
-  cf.textContent =
-    currentApp === "family"
-      ? "✓"
-      : "";
-
+  ch.textContent = currentApp === "hisab"   ? "✓" : "";
+  ck.textContent = currentApp === "khoroch" ? "✓" : "";
+  cf.textContent = currentApp === "family"  ? "✓" : "";
 }
-
-
-/* =========================
-   OPEN SHEET
-========================= */
 
 function openSheet(){
-
   updateSwitcher();
-
-  document
-    .getElementById(
-      "overlay"
-    )
-    .classList.add(
-      "show"
-    );
-
+  document.getElementById("overlay").classList.add("show");
 }
-
-
-/* =========================
-   CLOSE SHEET
-========================= */
 
 function closeSheet(e){
-
-  if(
-    e &&
-    e.target !==
-    document.getElementById(
-      "overlay"
-    )
-  ){
-
-    return;
-
-  }
-
-  document
-    .getElementById(
-      "overlay"
-    )
-    .classList.remove(
-      "show"
-    );
-
+  if(e && e.target !== document.getElementById("overlay")) return;
+  document.getElementById("overlay").classList.remove("show");
 }
-
-
-/* =========================
-   GO HOME
-========================= */
 
 function goHome(){
-
-  document
-    .getElementById(
-      "overlay"
-    )
-    .classList.remove(
-      "show"
-    );
-
-
-  document
-    .getElementById(
-      "appFrame"
-    )
-    .src = "";
-
-
-  document
-    .getElementById(
-      "viewer"
-    )
-    .style.display = "none";
-
-
-  document
-    .getElementById(
-      "home"
-    )
-    .style.display = "block";
-
-
+  document.getElementById("overlay").classList.remove("show");
+  document.getElementById("appFrame").src = "";
+  document.getElementById("viewer").style.display = "none";
+  document.getElementById("home").style.display = "block";
   currentApp = "";
-
 }
-
-
-/* =========================
-   LOGOUT
-========================= */
 
 function logout(){
-
-  document
-    .getElementById(
-      "overlay"
-    )
-    .classList.remove(
-      "show"
-    );
-
-
-  document
-    .getElementById(
-      "appFrame"
-    )
-    .src = "";
-
-
-  document
-    .getElementById(
-      "viewer"
-    )
-    .style.display = "none";
-
-
+  document.getElementById("overlay").classList.remove("show");
+  document.getElementById("appFrame").src = "";
+  document.getElementById("viewer").style.display = "none";
   currentApp = "";
-
-
-  localStorage.removeItem(
-    LOGIN_KEY
-  );
-
-
-  document
-    .getElementById(
-      "loginUsername"
-    )
-    .value = "";
-
-
-  document
-    .getElementById(
-      "loginPassword"
-    )
-    .value = "";
-
-
-  document
-    .getElementById(
-      "loginError"
-    )
-    .classList.remove(
-      "show"
-    );
-
-
+  localStorage.removeItem(LOGIN_KEY);
+  document.getElementById("loginUsername").value = "";
+  document.getElementById("loginPassword").value = "";
+  document.getElementById("loginError").classList.remove("show");
   showLogin();
-
 }
 
-
-/* =========================
-   SERVICE WORKER
-========================= */
-
-if(
-  "serviceWorker" in navigator
-){
-
-  window.addEventListener(
-    "load",
-    () => {
-
-      navigator
-        .serviceWorker
-        .register("sw.js")
-        .catch(() => {});
-
-    }
-  );
-
+if("serviceWorker" in navigator){
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("sw.js").catch(()=>{});
+  });
 }
-
-
-/* =========================
-   START
-========================= */
 
 checkLogin();
 
