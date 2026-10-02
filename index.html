@@ -248,12 +248,41 @@ body{
     20px;
 
   overflow:auto;
+  position:relative;
+}
+
+.home::before{
+  content:"";
+  position:absolute;
+  top:38%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  width:320px;
+  height:320px;
+  border-radius:50%;
+  background:
+    radial-gradient(
+      circle,
+      rgba(22,139,105,.18),
+      transparent 70%
+    );
+  filter:blur(40px);
+  pointer-events:none;
+  z-index:0;
+  animation:homeGlow 6s ease-in-out infinite;
+}
+
+@keyframes homeGlow{
+  0%,100%{ opacity:.6; transform:translate(-50%,-50%) scale(1); }
+  50%    { opacity:1;  transform:translate(-50%,-50%) scale(1.15); }
 }
 
 .top{
   width:100%;
   max-width:520px;
   margin:0 auto;
+  position:relative;
+  z-index:1;
 }
 
 .brand{
@@ -306,7 +335,7 @@ body{
 }
 
 /* =========================
-   APP CARDS
+   APP CARDS (3D)
 ========================= */
 
 .apps{
@@ -320,55 +349,151 @@ body{
 
   display:flex;
   flex-direction:column;
-  gap:19px;
+  gap:22px;
+
+  perspective:1000px;
+  position:relative;
+  z-index:1;
 }
 
 .app-card{
+  position:relative;
   width:100%;
-  min-height:105px;
+  min-height:110px;
 
   display:flex;
   align-items:center;
 
-  padding:18px;
+  padding:20px;
 
-  border:1px solid rgba(255,255,255,.8);
-  border-radius:25px;
+  border:1px solid rgba(255,255,255,.9);
+  border-radius:26px;
 
   background:
     linear-gradient(
       145deg,
-      rgba(255,255,255,.92),
-      rgba(255,255,255,.62)
+      rgba(255,255,255,.98),
+      rgba(255,255,255,.72)
     );
 
   box-shadow:
-    0 18px 35px rgba(43,80,70,.12),
-    inset 0 1px 0 rgba(255,255,255,.85);
-
-  backdrop-filter:blur(16px);
-  -webkit-backdrop-filter:blur(16px);
+    0 1px 0 rgba(255,255,255,1) inset,
+    0 -1px 0 rgba(0,0,0,.03) inset,
+    0 12px 24px -8px rgba(30,70,58,.18),
+    0 30px 50px -20px rgba(30,70,58,.35),
+    0 20px 40px -22px rgba(11,107,79,.28);
 
   cursor:pointer;
   text-align:left;
+  overflow:hidden;
+
+  transform:translateZ(0) rotateX(0deg);
+  transform-style:preserve-3d;
+
+  animation:
+    cardEntrance .8s cubic-bezier(.2,.9,.3,1) both,
+    cardFloat 4s ease-in-out infinite;
 
   transition:
-    transform .18s,
-    box-shadow .18s;
+    transform .35s cubic-bezier(.2,.9,.3,1),
+    box-shadow .35s ease;
+}
+
+.app-card:nth-child(1){ animation-delay:.05s, .9s; }
+.app-card:nth-child(2){ animation-delay:.18s, 1.4s; }
+.app-card:nth-child(3){ animation-delay:.31s, 1.9s; }
+
+@keyframes cardEntrance{
+  0%{
+    opacity:0;
+    transform:translateY(40px) rotateX(-20deg) scale(.9);
+  }
+  100%{
+    opacity:1;
+    transform:translateY(0) rotateX(0deg) scale(1);
+  }
+}
+
+@keyframes cardFloat{
+  0%,100%{ transform:translateY(0) rotateX(0deg); }
+  50%    { transform:translateY(-5px) rotateX(2deg); }
+}
+
+.app-card::before{
+  content:"";
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  height:55%;
+
+  border-radius:26px 26px 60% 60%/26px 26px 40px 40px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,.7) 0%,
+      rgba(255,255,255,0) 100%
+    );
+
+  pointer-events:none;
+  z-index:1;
+}
+
+.app-card::after{
+  content:"";
+  position:absolute;
+  left:0;
+  top:20%;
+  bottom:20%;
+  width:5px;
+  border-radius:0 6px 6px 0;
+
+  background:
+    linear-gradient(
+      180deg,
+      #168b69,
+      #075a43
+    );
+
+  opacity:0;
+  transform:scaleY(.4);
+  transform-origin:center;
+
+  transition:opacity .35s ease, transform .35s ease;
+
+  pointer-events:none;
+  z-index:2;
+}
+
+.app-card:nth-child(2)::after{
+  background:linear-gradient(180deg,#d5a94c,#9d7120);
+}
+
+.app-card:nth-child(3)::after{
+  background:linear-gradient(180deg,#5689d8,#3156a1);
 }
 
 .app-card:active{
-  transform:
-    translateY(2px)
-    scale(.985);
+  transform:translateY(2px) scale(.975) rotateX(0deg);
 
   box-shadow:
-    0 10px 20px rgba(43,80,70,.12);
+    0 1px 0 rgba(255,255,255,1) inset,
+    0 -1px 0 rgba(0,0,0,.03) inset,
+    0 6px 14px -6px rgba(30,70,58,.22),
+    0 14px 26px -14px rgba(30,70,58,.35),
+    0 10px 22px -14px rgba(11,107,79,.35);
+}
+
+.app-card:active::after{
+  opacity:1;
+  transform:scaleY(1);
 }
 
 .icon-wrap{
-  width:66px;
-  height:66px;
+  position:relative;
+  width:70px;
+  height:70px;
 
   flex:none;
 
@@ -376,72 +501,99 @@ body{
   align-items:center;
   justify-content:center;
 
-  border-radius:21px;
+  border-radius:22px;
 
   box-shadow:
-    0 10px 20px rgba(0,0,0,.10),
-    inset 0 1px 0 rgba(255,255,255,.35);
+    0 1px 0 rgba(255,255,255,.7) inset,
+    0 -3px 0 rgba(0,0,0,.12) inset,
+    0 10px 18px -6px rgba(0,0,0,.28),
+    0 16px 26px -14px rgba(0,0,0,.35);
+
+  transform:translateZ(30px);
+
+  transition:transform .35s cubic-bezier(.2,.9,.3,1);
+}
+
+.app-card:active .icon-wrap{
+  transform:translateZ(30px) scale(.94) rotate(-4deg);
+}
+
+.icon-wrap::before{
+  content:"";
+  position:absolute;
+  top:6%;
+  left:10%;
+  right:10%;
+  height:40%;
+  border-radius:16px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,.55),
+      rgba(255,255,255,0)
+    );
+
+  pointer-events:none;
 }
 
 .icon-wrap.hisab{
-  background:
-    linear-gradient(
-      145deg,
-      #168b69,
-      #075d45
-    );
+  background:linear-gradient(145deg,#1aa27a,#075d45);
 }
 
 .icon-wrap.khoroch{
-  background:
-    linear-gradient(
-      145deg,
-      #d5a94c,
-      #9d7120
-    );
+  background:linear-gradient(145deg,#e2b65c,#9d7120);
 }
 
 .icon-wrap.family{
-  background:
-    linear-gradient(
-      145deg,
-      #5689d8,
-      #3156a1
-    );
+  background:linear-gradient(145deg,#6a9ce8,#3156a1);
 }
 
 .icon{
-  font-size:30px;
+  font-size:32px;
+  position:relative;
+  z-index:1;
+
+  filter:
+    drop-shadow(0 2px 3px rgba(0,0,0,.25))
+    drop-shadow(0 1px 0 rgba(255,255,255,.2));
 }
 
 .details{
   min-width:0;
   flex:1;
 
-  padding-left:16px;
+  padding-left:18px;
+
+  transform:translateZ(15px);
 }
 
 .details h2{
   margin:0;
 
-  font-size:18px;
+  font-size:19px;
   font-weight:800;
 
   color:#183a31;
+
+  letter-spacing:-.3px;
+
+  text-shadow:0 1px 0 rgba(255,255,255,.7);
 }
 
 .details p{
-  margin:5px 0 0;
+  margin:6px 0 0;
 
   font-size:13px;
-  color:#81918c;
+  color:#7a8d87;
+  font-weight:500;
 }
 
 .arrow{
   flex:none;
 
-  width:36px;
-  height:36px;
+  width:38px;
+  height:38px;
 
   display:flex;
   align-items:center;
@@ -449,12 +601,38 @@ body{
 
   border-radius:50%;
 
-  background:rgba(11,107,79,.08);
+  background:
+    linear-gradient(
+      145deg,
+      rgba(11,107,79,.14),
+      rgba(11,107,79,.05)
+    );
 
   color:#0b6b4f;
 
   font-size:28px;
   font-weight:300;
+  line-height:1;
+
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.6) inset,
+    0 -1px 0 rgba(0,0,0,.05) inset;
+
+  transform:translateZ(20px);
+
+  transition:
+    background .3s,
+    transform .35s cubic-bezier(.2,.9,.3,1);
+}
+
+.app-card:active .arrow{
+  background:
+    linear-gradient(
+      145deg,
+      rgba(11,107,79,.3),
+      rgba(11,107,79,.15)
+    );
+  transform:translateZ(20px) translateX(4px);
 }
 
 /* =========================
@@ -468,9 +646,12 @@ body{
   max-width:500px;
 
   margin:
-    70px
+    80px
     auto
     0;
+
+  position:relative;
+  z-index:1;
 }
 
 /* =========================
@@ -520,6 +701,9 @@ body{
   color:#91a19c;
   font-size:12px;
   font-weight:600;
+
+  position:relative;
+  z-index:1;
 }
 
 /* =========================
@@ -550,7 +734,8 @@ body{
 }
 
 /* =========================
-   EDGE SWITCHER
+   ★★★ EDGE SWITCHER (3D) ★★★
+   Same position: left edge, bottom area
 ========================= */
 
 .edge-switcher{
@@ -561,65 +746,249 @@ body{
 
   z-index:40;
 
-  width:42px;
-  height:42px;
+  width:46px;
+  height:48px;
 
-  border:1px solid rgba(255,255,255,.55);
+  border:0;
   border-left:0;
 
   border-radius:
     0
-    18px
-    18px
+    20px
+    20px
     0;
 
+  /* 3D base gradient (glossy top → dark bottom) */
   background:
     linear-gradient(
-      145deg,
-      rgba(198,155,164,.78),
-      rgba(224,190,198,.72)
+      180deg,
+      #22d3a0 0%,
+      #168b69 35%,
+      #0b6b4f 70%,
+      #054a37 100%
     );
 
+  /* Multiple layered shadows for real 3D depth */
   box-shadow:
-    4px 6px 18px rgba(130,90,100,.14),
-    inset 0 1px 0 rgba(255,255,255,.55);
+    /* Top highlight */
+    0 1px 0 rgba(255,255,255,.75) inset,
+    /* Left inner light */
+    1px 0 0 rgba(255,255,255,.35) inset,
+    /* Bottom inner dark (bevel) */
+    0 -4px 6px rgba(0,0,0,.35) inset,
+    /* Right inner dark (bevel) */
+    -2px 0 4px rgba(0,0,0,.2) inset,
+    /* Close cast shadow */
+    3px 4px 8px rgba(11,107,79,.35),
+    /* Mid cast shadow */
+    6px 10px 20px rgba(11,107,79,.28),
+    /* Deep cast shadow (3D lift) */
+    10px 18px 34px -8px rgba(11,107,79,.45);
 
   display:flex;
   align-items:center;
   justify-content:center;
 
   cursor:pointer;
+  overflow:hidden;
 
-  backdrop-filter:blur(12px);
-  -webkit-backdrop-filter:blur(12px);
+  /* 3D perspective + tilt */
+  transform:
+    perspective(500px)
+    rotateY(-10deg)
+    translateZ(0);
+
+  transform-origin:left center;
 
   transition:
-    width .18s,
-    transform .18s,
-    box-shadow .18s;
+    width .3s cubic-bezier(.2,.9,.3,1),
+    transform .3s cubic-bezier(.2,.9,.3,1),
+    box-shadow .3s ease,
+    border-radius .3s ease;
+
+  /* Pulse glow animation */
+  animation:edgePulse3D 3.2s ease-in-out infinite;
 }
 
+/* Pulse glow (glows brighter/dimmer) */
+@keyframes edgePulse3D{
+  0%,100%{
+    box-shadow:
+      0 1px 0 rgba(255,255,255,.75) inset,
+      1px 0 0 rgba(255,255,255,.35) inset,
+      0 -4px 6px rgba(0,0,0,.35) inset,
+      -2px 0 4px rgba(0,0,0,.2) inset,
+      3px 4px 8px rgba(11,107,79,.35),
+      6px 10px 20px rgba(11,107,79,.28),
+      10px 18px 34px -8px rgba(11,107,79,.45),
+      0 0 12px rgba(34,211,160,.35);
+  }
+  50%{
+    box-shadow:
+      0 1px 0 rgba(255,255,255,.85) inset,
+      1px 0 0 rgba(255,255,255,.45) inset,
+      0 -4px 6px rgba(0,0,0,.4) inset,
+      -2px 0 4px rgba(0,0,0,.25) inset,
+      3px 4px 10px rgba(11,107,79,.45),
+      6px 10px 24px rgba(11,107,79,.4),
+      10px 20px 40px -8px rgba(11,107,79,.6),
+      0 0 26px rgba(34,211,160,.7);
+  }
+}
+
+/* Glossy top highlight (glass shine) */
 .edge-switcher::before{
   content:"⇄";
 
   color:#fff;
 
   font-size:20px;
-  font-weight:700;
+  font-weight:800;
   line-height:1;
 
+  position:relative;
+  z-index:3;
+
   text-shadow:
-    0 1px 3px rgba(90,60,70,.18);
+    0 1px 0 rgba(255,255,255,.4),
+    0 2px 6px rgba(0,0,0,.5),
+    0 0 12px rgba(34,211,160,.5);
+
+  animation:arrowGlow 2.4s ease-in-out infinite;
 }
 
-.edge-switcher:active{
-  width:48px;
+@keyframes arrowGlow{
+  0%,100%{
+    transform:translateX(0);
+    text-shadow:
+      0 1px 0 rgba(255,255,255,.4),
+      0 2px 6px rgba(0,0,0,.5),
+      0 0 10px rgba(34,211,160,.4);
+  }
+  50%{
+    transform:translateX(-2px);
+    text-shadow:
+      0 1px 0 rgba(255,255,255,.6),
+      0 2px 8px rgba(0,0,0,.6),
+      0 0 22px rgba(34,211,160,.95);
+  }
+}
 
-  transform:scale(.96);
+/* Light sweep shine across the button */
+.edge-switcher::after{
+  content:"";
+  position:absolute;
+  top:0;
+  left:-120%;
+  width:70%;
+  height:100%;
+
+  background:
+    linear-gradient(
+      100deg,
+      transparent 0%,
+      rgba(255,255,255,.75) 50%,
+      transparent 100%
+    );
+
+  transform:skewX(-20deg);
+
+  animation:shine3D 3.4s ease-in-out infinite;
+
+  pointer-events:none;
+  z-index:2;
+}
+
+@keyframes shine3D{
+  0%   { left:-120%; }
+  55%  { left:150%; }
+  100% { left:150%; }
+}
+
+/* Vertical glossy stripe on left edge (adds 3D bevel look) */
+.edge-switcher .gloss{
+  position:absolute;
+  left:0;
+  top:0;
+  bottom:0;
+  width:6px;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,.65) 0%,
+      rgba(255,255,255,.15) 60%,
+      transparent 100%
+    );
+
+  border-radius:
+    0
+    20px
+    20px
+    0;
+
+  pointer-events:none;
+  z-index:2;
+}
+
+/* Pulse ring (3D expanding ring) */
+.edge-switcher .pulse-ring{
+  position:absolute;
+  left:0;
+  top:50%;
+  transform:translateY(-50%);
+
+  width:100%;
+  height:100%;
+
+  border-radius:inherit;
+
+  border:2px solid rgba(34,211,160,.9);
+
+  animation:ringPulse3D 2.6s ease-out infinite;
+
+  pointer-events:none;
+  z-index:1;
+}
+
+@keyframes ringPulse3D{
+  0%{
+    opacity:1;
+    transform:translateY(-50%) scale(1);
+    box-shadow:0 0 12px rgba(34,211,160,.9);
+  }
+  100%{
+    opacity:0;
+    transform:translateY(-50%) scale(2);
+    box-shadow:0 0 0 rgba(34,211,160,0);
+  }
+}
+
+/* Active / pressed-down state (button sinks into surface) */
+.edge-switcher:active{
+  width:56px;
+
+  border-radius:
+    0
+    24px
+    24px
+    0;
+
+  transform:
+    perspective(500px)
+    rotateY(-4deg)
+    translateX(2px)
+    scale(.96);
 
   box-shadow:
-    3px 4px 12px rgba(130,90,100,.16),
-    inset 0 1px 0 rgba(255,255,255,.45);
+    0 1px 0 rgba(255,255,255,.5) inset,
+    1px 0 0 rgba(255,255,255,.2) inset,
+    0 -2px 4px rgba(0,0,0,.5) inset,
+    -1px 0 3px rgba(0,0,0,.3) inset,
+    2px 2px 6px rgba(11,107,79,.4),
+    3px 4px 12px rgba(11,107,79,.35),
+    5px 8px 20px -6px rgba(11,107,79,.5),
+    0 0 40px rgba(34,211,160,.9);
 }
 
 /* =========================
@@ -1038,10 +1407,7 @@ body{
 
   <div class="apps">
 
-    <!-- =========================
-         AMAR HISAB
-    ========================= -->
-
+    <!-- AMAR HISAB -->
     <button
       class="app-card"
       onclick="openApp('hisab')"
@@ -1072,10 +1438,7 @@ body{
     </button>
 
 
-    <!-- =========================
-         AMAR KHOROCH
-    ========================= -->
-
+    <!-- AMAR KHOROCH -->
     <button
       class="app-card"
       onclick="openApp('khoroch')"
@@ -1106,10 +1469,7 @@ body{
     </button>
 
 
-    <!-- =========================
-         FAMILY MAINTENANCE
-    ========================= -->
-
+    <!-- FAMILY MAINTENANCE -->
     <button
       class="app-card"
       onclick="openApp('family')"
@@ -1170,10 +1530,15 @@ body{
     id="appFrame"
   ></iframe>
 
+  <!-- ★ 3D EDGE SWITCHER (same position) ★ -->
   <div
     class="edge-switcher"
     onclick="openSheet()"
-  ></div>
+    aria-label="Switch App"
+  >
+    <div class="gloss"></div>
+    <div class="pulse-ring"></div>
+  </div>
 
 </div>
 
@@ -1200,10 +1565,7 @@ body{
     </div>
 
 
-    <!-- =========================
-         HISAB
-    ========================= -->
-
+    <!-- HISAB -->
     <button
       class="sheet-app"
       id="sheetHisab"
@@ -1234,10 +1596,7 @@ body{
     </button>
 
 
-    <!-- =========================
-         KHOROCH
-    ========================= -->
-
+    <!-- KHOROCH -->
     <button
       class="sheet-app"
       id="sheetKhoroch"
@@ -1268,10 +1627,7 @@ body{
     </button>
 
 
-    <!-- =========================
-         FAMILY
-    ========================= -->
-
+    <!-- FAMILY -->
     <button
       class="sheet-app"
       id="sheetFamily"
@@ -1302,10 +1658,7 @@ body{
     </button>
 
 
-    <!-- =========================
-         HOME
-    ========================= -->
-
+    <!-- HOME -->
     <button
       class="home-btn"
       onclick="goHome()"
@@ -1314,10 +1667,7 @@ body{
     </button>
 
 
-    <!-- =========================
-         LOGOUT
-    ========================= -->
-
+    <!-- LOGOUT -->
     <button
       class="logout-btn"
       onclick="logout()"
